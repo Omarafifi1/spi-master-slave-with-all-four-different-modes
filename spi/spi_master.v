@@ -40,15 +40,14 @@ always @(negedge s_clk ,negedge rst_n) begin
         mosi_2<=data_reg2[0];  
     end 
     else begin
-        case ({CPOL,CPHA})  
+    case({CPOL,CPHA})  
         1,2: 
-            mosi_2<=data_reg2[0];                      
-        0,3:
-            begin
-            if(!done_tick)  
-            data_reg1<={miso,data_reg1[data_width-1:1]}; 
-            end
-        endcase
+         mosi_2<=data_reg2[0];                      
+        0,3:begin
+         if(!done_tick)  
+         data_reg1<={miso,data_reg1[data_width-1:1]}; 
+         end
+    endcase
     end
 end
 //-----------------------------------------------------
@@ -58,17 +57,14 @@ always @(posedge s_clk ,negedge rst_n) begin
         mosi_1<=data_reg1[0];   
     end
     else begin 
-       case ({CPOL,CPHA})  ///// sampling
+    case ({CPOL,CPHA})  ///// sampling
         0,3: 
-            mosi_1<=data_reg1[0];                      
+         mosi_1<=data_reg1[0];                      
         1,2:begin
-            if(!done_tick) 
-
-            data_reg2<={miso,data_reg2[data_width-1:1]}; 
-            end
-        endcase
+         if(!done_tick) 
+         data_reg2<={miso,data_reg2[data_width-1:1]}; 
+         end
+    endcase
     end
 end
-
-
 endmodule
